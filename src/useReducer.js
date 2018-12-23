@@ -18,7 +18,7 @@ function reducer(state = { count: 0 }, action) {
     }
 }
 
-const useReducerDemo = () => {
+const UseReducerDemo = () => {
     //useReducer(reducer,{默认值},{默认执行type})
     //默认值count为0,但默认执行一次increment
     const [state, dispatch] = useReducer(reducer, { count: 0 }, { type: 'increment' });
@@ -44,7 +44,7 @@ const useReducerDemo = () => {
     //返回一个值，当tips的值发生变化时才调用
     const memoizedValue = useMemo(() => {
         console.log('useMemo run');
-        return `改变了${tips}`
+        return tips
     }, [tips]);
     return (
         <div>
@@ -55,14 +55,13 @@ const useReducerDemo = () => {
                 <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
                 <button onClick={asyncIncrement}>async+</button>
                 {
-                    tips && <span style={style.block}>不能为负数哦</span>
+                    memoizedValue && <span style={style.block}>不能为负数哦</span>
                 }
             </p>
             <p>
                 <button onClick={memoizedCallback}>memoizedCallback</button>
             </p>
-            <p>{memoizedValue}</p>
         </div>
     );
 }
-export default useReducerDemo
+export default UseReducerDemo
